@@ -64,9 +64,9 @@ if [ ! -z ${GIT_REPOSITORY} ]; then
 fi
 
 if [ -e ".git" ]; then
-    git checkout ${GIT_BRANCH}
     git fetch origin
-    git merge -X theirs origin/main
+    git checkout -f ${GIT_BRANCH}
+    git merge -X theirs origin/${GIT_BRANCH}
     git submodule update
     git submodule sync --recursive
 fi
