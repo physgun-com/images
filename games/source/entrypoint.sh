@@ -56,7 +56,7 @@ fi
 
 ## Attempt to initialize the git repository.
 ## This only happens on initial install (when the container directory is empty).
-if [ ! -z ${GIT_REPOSITORY} ]; then
+if [ ! -z ${GIT_REPOSITORY} ] && [ ! -e ".git" ]; then
     echo -e "Initializing git repository."
     git init
     git branch -M main
@@ -67,6 +67,8 @@ if [ -e ".git" ]; then
     git fetch origin
     git checkout -f ${GIT_BRANCH}
     git merge -X theirs origin/${GIT_BRANCH}
+    
+    git submodule init
     git submodule update
     git submodule sync --recursive
 fi
