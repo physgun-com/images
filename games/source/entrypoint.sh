@@ -55,14 +55,13 @@ else
 fi
 
 ## Attempt to initialize the git repository.
-## This only happens on initial install (when the container directory is empty).
-if [ ! -z ${GIT_REPOSITORY} ] && [ ! -e ".git" ]; then
+if [ ! -z ${GIT_URL} ] && [ ! -e ".git" ]; then
     echo -e "Initializing git repository."
     git init
-    git branch -M main
-    git remote add origin -f ${GIT_REPOSITORY}
+    git remote add origin -f ${GIT_URL}
 fi
 
+## If we're in a git directory, we'll attempt to force pull changes.
 if [ -e ".git" ]; then
     git fetch origin
     git checkout -f ${GIT_BRANCH}
